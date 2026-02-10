@@ -6,7 +6,7 @@ import base64
 def encrypt_data(key:bytes,plaintext:str) -> str:
   iv = urandom(16)
 
-  cipher = Cipher(algorithms.AE5(key), modes.CFB(iv), backend=default_backend())
+  cipher = Cipher(algorithms.AE5(key), modes.GCM(iv), backend=default_backend())
   encryptor = cipher.encryptor()
 
   ciphertext = encryptor.update(plaintext.encode()) + encryptor.finalize()
@@ -15,4 +15,5 @@ def encrypt_data(key:bytes,plaintext:str) -> str:
 key = urandom(32)
 plaintext=input("Text to encrypt?\n")
 encrypted_data = encrypt_data(key,plaintext)
+
 print(f"Encrypted: {encrypted_data}"
