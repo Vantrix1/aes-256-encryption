@@ -12,7 +12,12 @@ def encrypt_data(key:bytes,plaintext:str) -> str:
   ciphertext = encryptor.update(plaintext.encode()) + encryptor.finalize()
   return base64.b64encode(iv + ciphertext).decode('utf-8')
 
-key = urandom(32)
+
+for filename in os.listdir(os.getcwd()):
+  with open(os.path.join(os.getcwd+filename), "r") as f:
+  encrypttxt = f.readlines()
+  key = urandom(32)
+  
 plaintext=input("Text to encrypt?\n")
 encrypted_data = encrypt_data(key,plaintext)
 
